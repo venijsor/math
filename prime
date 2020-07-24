@@ -1,0 +1,37 @@
+is_next_prime_number <- function(number, primes)
+{
+  max <- sqrt(number)
+  for (div in primes) {
+    if (div > max)
+      return(TRUE)
+    if ((number %% div) == 0)
+      return(FALSE)
+  }
+  number > 1
+}
+
+get_prime_numbers <- function(max_number)
+{
+  p <- c()
+  for (n in 1:max_number) {
+    if (is_next_prime_number(n, p))
+      p <- c(p, n)
+  }
+  p
+}
+
+is_prime_number <- function(number)
+{
+  p <- get_prime_numbers(number)
+  tail(p, n = 1) == number
+}
+
+// Example 1 to 1000.
+p <- get_prime_numbers(1000)
+product <- 1
+for (i in 1:length(p)) {
+  product <- product * p[i]
+  ans <- product  ^ (1 / p[i])
+  res <- sprintf("%d: %f", p[i], ans)
+  print(res)
+}
